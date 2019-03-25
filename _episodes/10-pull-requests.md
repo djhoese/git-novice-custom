@@ -1,19 +1,19 @@
 ---
-title: Pull Requests
+title: Merge Requests
 teaching: 60
 exercises: 15
 questions:
-- "What are pull requests for?"
-- "How can I make a pull request?"
+- "What are merge requests for?"
+- "How can I make a merge request?"
 objectives:
 - "Define the terms fork, clone, origin, remote, upstream"
-- "Understand how to make a pull request and what they are useful for"
+- "Understand how to make a merge request and what they are useful for"
 keypoints:
-- "Pull requests suggest changes to repos where you don't have privileges"
+- "Merge requests suggest changes to repos where you don't have privileges"
 ---
 
 
-Pull requests are a great way to collaborate with others using github.
+Merge requests are a great way to collaborate with others using gitlab.
 Instead of making changes directly to a repository you can suggest changes to a repo.
 This can be useful if you don't have permission to modify a repository directly or
 you want someone else to review your changes.
@@ -22,26 +22,25 @@ For this lesson we will be working on the `countries` repository together.
 Open the github link for the `countries` repo provided by the instructor 
 in your browser window.
 
-![](../fig/github_screenshot_upstream_repo.png)
+![](../fig/gitlab_screenshot_upstream_repo.png)
 
 > ## Repo owner differences
 >
 > You may have noticed that the `countries` repo in this lesson's pictures 
-> is owned by the 'McMahonLab' organization and this doesn't match
-> the address you were given.
-> This is to be expected because this will differ depending on 
-> what organization your instructor used to setup the `countries` repo.
+> is owned by 'ssec-dev' and it may not match the address you were given.
+> Repositories can be owned by individual users or groups. This will differ
+> depending on how your instructor setup the `countries` repo.
 > 
-> You will also see your username where the 'sstevens2' is in the picutres.
+> You will also see your username where the 'davidh' is in the pictures.
 > 
 {: .callout}
 
 Once at the `countries` repo, click the **Fork** button which can be found
-in the upper right hand conner of the window. 
-Forking the repository makes us each our own copy of the repo in our github 
+in the upper left corner of the page. 
+Forking the repository makes us our own copy of the repo in our gitlab
 account which we can edit.
 
-![](../fig/github_screenshot_upstream_forking.png)
+![](../fig/gitlab_screenshot_upstream_forking.png)
 
 Next we need to get this repo on our local computer and
 setup connections from our computer to both our forked version 
@@ -49,12 +48,14 @@ and the authoritative version we forked it from.
 
 First we will **clone** the repo from our forked version.
 The clone command does two things:
-	1. Copies the repo to your local computer
-	2. Sets up a remote called 'origin' between your computer and the github repo
+
+1. Copies the repo to your local computer
+2. Sets up a remote called 'origin' between your computer and the github repo
+
 Copy the web address for your forked version of repo 
 (from the web address line or click 'clone and download' and copy that).
 
-![](../fig/github_screenshot_cloneOrigin.png)
+![](../fig/gitlab_screenshot_cloneOrigin.png)
 
 In terminal or Gitbash, navigate to a folder you'd like to hold this repo,
 we will place it on our `Desktop`.
@@ -62,13 +63,13 @@ Once there you can use the `clone` command with the link you copied as the first
 
 ~~~
 $ cd ~/Desktop
-$ git clone https://github.com/USERNAME/countries.git
+$ git clone https://gitlab.ssec.wisc.edu/USERNAME/countries.git
 ~~~
 {: .bash}
 
 > ## Why does the command above say 'USERNAME'?
 >
-> So that we can't copy the command above and accidently clone someone else's
+> So that we can't copy the command above and accidentally clone someone else's
 > version of countries to our computer, the command above uses the placeholder
 > 'USERNAME' where you should put your own username if your copied from above
 > instead of copying the link from your browser and pasting it into the command.
@@ -88,12 +89,12 @@ Unpacking objects: 100% (6/6), done.
 Next we will set up a connection or **remote** to the authoritative repository 
 (the original version given to you by your instructor).
 In your browser, you can go back this repo by clicking on the link that says 'forked from'
-in the upper left hand corner, under your username and repo name.
+in the middle of the page under the repository name and commit information.
 
 Copy the web address for this repo 
-(from the web address line or click the 'clone and download' and copy that).
+(from the web address line or click the 'Clone' and copy that).
 
-![](../fig/github_screenshot_upstream_repo.png)
+![](../fig/gitlab_screenshot_upstream_repo.png)
 
 Then back in your terminal, navigate into the cloned repo and add the remote 
 connection to this repository.
@@ -105,7 +106,7 @@ the authoritative repository.
 
 ~~~
 $ cd countries
-$ git remote add upstream https://github.com/INSTRUCTOR-GIVEN/countries.git
+$ git remote add upstream https://gitlab.ssec.wisc.edu/INSTRUCTOR-GIVEN/countries.git
 ~~~
 {: .bash}
 
@@ -126,15 +127,15 @@ $ git remote -v
 {: .bash}
 
 ~~~
-origin	https://github.com/USERNAME/countries.git (fetch)
-origin	https://github.com/USERNAME/countries.git (push)
-upstream	https://github.com/INSTRUCTOR-GIVEN/countries.git (fetch)
-upstream	https://github.com/INSTRUCTOR-GIVEN/countries.git (push)
+origin	https://gitlab.ssec.wisc.edu/USERNAME/countries.git (fetch)
+origin	https://gitlab.ssec.wisc.edu/USERNAME/countries.git (push)
+upstream	https://gitlab.ssec.wisc.edu/INSTRUCTOR-GIVEN/countries.git (fetch)
+upstream	https://gitlab.ssec.wisc.edu/INSTRUCTOR-GIVEN/countries.git (push)
 ~~~
 {: .output}
 
 Now that we have this setup done we will be able to suggest 
-changes to this repo using a pull request.
+changes to this repo using a merge request.
 Each person will add a new file with info about a new country in it.
 
 The instructor will now add a single file to the repository containing 
@@ -210,7 +211,7 @@ $ cat france.txt
 
 ~~~
 Population: 66,991,000
-Capitol: Paris
+Capital: Paris
 ~~~
 {: .output}
 
@@ -230,12 +231,12 @@ $ git commit -m "Added file on france"
 
 In some cases we may not have permission to push changes directly to the 
 upstream/authoritative repo or we might like our changes to be reviewed regardless 
-of permissions, so we'll create a `pull request`. 
-A `pull request` is a **request** for a member of the upstream repository to **pull** 
+of permissions, so we'll create a `merge request`. 
+A `merge request` is a **request** for a member of the upstream repository to **merge** 
 our changes into the upstream repository from a `fork`, allowing them to request further 
 changes/improvements and make comments on the changes before doing so. 
-In order to create a `pull request`, we must push our new branch containing the
- changes we'd like to submit to the remote linked to our fork, `origin`, on GitHub.
+In order to create a `merge request`, we must push our new branch containing the
+ changes we'd like to submit to the remote linked to our fork, `origin`, on GitLab.
 
 ~~~
 $ git push origin addFrance
@@ -249,7 +250,7 @@ Compressing objects: 100% (4/4), done.
 Writing objects: 100% (4/4), 783 bytes | 0 bytes/s, done.
 Total 4 (delta 3), reused 0 (delta 0)
 remote: Resolving deltas: 100% (3/3), completed with 3 local objects.
-To https://github.com/USERNAME/countries.git
+To https://gitlab.ssec.wisc.edu/USERNAME/countries.git
    2037539..79a312a  addFrance -> addFrance
 ~~~
 {: .output}
@@ -258,38 +259,37 @@ Next go to your forked github version of the repo and reload the page.
 You won't see the new file added in the list of files but you will see 
 that you recently pushed a new branch to the repository.
 
-![](../fig/github_screenshot_origin_master_addFrance.png)
+![](../fig/gitlab_screenshot_origin_master_addFrance.png)
 
 If you wish to view your new branch you can click on the 'Branch' drop down menu
 and select that branch.
 
-![](../fig/github_screenshot_switch_github_branch.png)
+![](../fig/gitlab_screenshot_switch_gitlab_branch.png)
 
 Then you should be able to view the files and commits in that branch.
 
-![](../fig/github_screenshot_origin_master_addFrance.png)
+![](../fig/gitlab_screenshot_origin_master_addFrance.png)
 
-Github already suspects that we are going to want to make a pull request so we can click
-the 'Compare & pull request' button to start a new pull request.
+GitLab already suspects that we are going to want to make a merge request so we can click
+the 'Create merge request' button to start a new merge request.
 
-![](../fig/github_screenshot_makingPR1.png)
+![](../fig/gitlab_screenshot_makingPR1.png)
 
 The base fork should be the upstream/authoritative version's master branch and then 
 the head fork should be the new branch of our fork.
 You can add more information into the comment section if there is anything you'd like 
 to add for the person who reviews your suggestion.
-Then you can click the 'create pull request button' to submit the pull request.
+Then you can click the 'Submit merge request' to submit the merge request.
 
-![](../fig/github_screenshot_makingPR2.png)
+![](../fig/gitlab_screenshot_makingPR2.png)
 
 
 Now someone with privileges to the upstream repo can review it, give comments and
 suggestions, and merge it into the upstream version.
-In our pull request they can see any messages we left or click and look at the commits that were made and see the files changed.
-We can even explicitly ask someone to review our code by adding them as a reviewer on the left hand side of the window.
+In our merge request they can see any messages we left or click and look at the commits that were made and see the files changed.
 
-Our collaborator reviewing the pull request noticed that 
-we forgot to add the largest city so let's add it and update our pull request.
+Our collaborator reviewing the merge request noticed that 
+we forgot to add the largest city so let's add it and update our merge request.
 
 ~~~
 $ nano france.txt
@@ -320,18 +320,18 @@ Delta compression using up to 4 threads.
 Compressing objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 387 bytes | 0 bytes/s, done.
 Total 3 (delta 0), reused 0 (delta 0)
-To https://github.com/sstevens2/countries.git
+To https://gitlab.ssec.wisc.edu/USERNAME/countries.git
    31aa2e3..609acfe  addFrance -> addFrance
 ~~~
 {: .output}
 
-If we reload the pull request, we'll see that the new commit was added to the 
-pull request and the changes have been automatically updated.
-New commits pushed to the same branch are included in the previous pull request.
+If we reload the merge request, we'll see that the new commit was added to the 
+merge request and the changes have been automatically updated.
+New commits pushed to the same branch are included in the previous merge request.
 If you want to suggest changes separately you need to make separate branches but 
 if you want the changes to be considered together you should put them in the same branch.
 
-![](../fig/github_screenshot_after_new_commit.png)
+![](../fig/gitlab_screenshot_after_new_commit.png)
 
 When working with others we might encounter the conflicts, which we
 learned about earlier in branches.  Let's practice resolving conflicts when working
@@ -370,7 +370,7 @@ France
 ~~~
 {: .output}
 
-Next we need to add, commit, and push these requests to our existing pull request.
+Next we need to add, commit, and push these requests to our existing merge request.
 
 ~~~
 $ git add README.md
@@ -396,20 +396,20 @@ Compressing objects: 100% (3/3), done.
 Writing objects: 100% (3/3), 376 bytes | 0 bytes/s, done.
 Total 3 (delta 1), reused 0 (delta 0)
 remote: Resolving deltas: 100% (1/1), completed with 1 local object.
-To https://github.com/sstevens2/countries.git
+To https://github.com/USERNAME/countries.git
    609acfe..66d7ebf  addFrance -> addFrance
 ~~~
 {: .output}
 
-Now if we reload the page we had a pull request we notice that our `addFrance`
+Now if we reload the page we had a merge request we notice that our `addFrance`
 branch is conflicting with upstream's `master` branch.
 This is because someone else edited the same line of the `README.md` file by 
 adding 'United States' where we added 'France'.
 
-![](../fig/github_screenshot_conflicting_PR.png)
+![](../fig/gitlab_screenshot_conflicting_PR.png)
 
-In this case, it is possible to resolve this conflict in github by 
-clicking the 'Resolve Conflicts' button.
+In this case, it is possible to resolve this conflict in gitlab by 
+clicking the 'Resolve conflicts' button.
 However, we will reuse the skills we learned earlier to resolve this conflict locally,
 as we did in our branching conflict.
 
@@ -486,7 +486,7 @@ $ git commit -m "Resolved conflict in readme w two countries"
 ~~~
 {: .output}
 
-Finally we can update the pull request by pushing these changes to our github 
+Finally we can update the merge request by pushing these changes to our github 
 fork of the repository.
 
 ~~~
@@ -502,20 +502,20 @@ Compressing objects: 100% (6/6), done.
 Writing objects: 100% (6/6), 732 bytes | 0 bytes/s, done.
 Total 6 (delta 2), reused 0 (delta 0)
 remote: Resolving deltas: 100% (2/2), completed with 1 local object.
-To https://github.com/sstevens2/countries.git
+To https://gitlab.ssec.wisc.edu/USERNAME/countries.git
    66d7ebf..912317b  addFrance -> addFrance
 ~~~
 {: .output}
 
-Now if we reload our browser we will see that the new commit is in the pull 
+Now if we reload our browser we will see that the new commit is in the merge
 request and it has no conflicts with the base branch.
 
-![](../fig/github_screenshot_resolved_PR_conflict.png)
+![](../fig/gitlab_screenshot_resolved_PR_conflict.png)
 
-Now the owner/administrator/manager of the authoritative repo can review our pull requests and decide to incorporate them.
+Now the owner/administrator/manager of the authoritative repo can review our merge requests and decide to incorporate them.
 
 
-> ## Add new country file and make additional PR
+> ## Add new country file and make additional merge request
 >
 > - Starting in the master branch make a new branch
 > - Copy other country file into a new country

@@ -1,5 +1,5 @@
 ---
-title: Remotes in GitHub
+title: Remotes on SSEC GitLab
 teaching: 30
 exercises: 0
 questions:
@@ -26,21 +26,21 @@ services like [GitHub](https://github.com), [BitBucket](https://bitbucket.org) o
 and cons of this in the final section of this lesson.
 
 Let's start by sharing the changes we've made to our current project with the
-world.  Log in to GitHub, then click on the icon in the top right corner to
-create a new repository called `planets`:
+world.  Log in to [SSEC GitLab](https://gitlab.ssec.wisc.edu), then click on
+the icon in the top right corner to create a new repository called `planets`:
 
-![Creating a Repository on GitHub (Step 1)](../fig/github-create-repo-01.png)
+![Creating a Repository on GitLab (Step 1)](../fig/gitlab-create-repo-01.png)
 
-Name your repository "planets" and then click "Create Repository":
+Name your repository "planets", make it "Public", and then click "Create Repository":
 
-![Creating a Repository on GitHub (Step 2)](../fig/github-create-repo-02.png)
+![Creating a Repository on GitLab (Step 2)](../fig/gitlab-create-repo-02.png)
 
-As soon as the repository is created, GitHub displays a page with a URL and some
+As soon as the repository is created, GitLab displays a page with a URL and some
 information on how to configure your local repository:
 
-![Creating a Repository on GitHub (Step 3)](../fig/github-create-repo-03.png)
+![Creating a Repository on GitLab (Step 3)](../fig/gitlab-create-repo-03.png)
 
-This effectively does the following on GitHub's servers:
+This effectively does the following on GitLab's servers:
 
 ~~~
 $ mkdir planets
@@ -50,19 +50,18 @@ $ git init
 {: .bash}
 
 Our local repository still contains our earlier work on `mars.txt`, but the
-remote repository on GitHub doesn't contain any files yet:
+remote repository on GitLab doesn't contain any files yet:
 
-![Freshly-Made GitHub Repository](../fig/git-freshly-made-github-repo.svg)
+![Freshly-Made GitLab Repository](../fig/git-freshly-made-github-repo.svg)
 
 The next step is to connect the two repositories.  We do this by making the
-GitHub repository a [remote]({{ page.root }}/reference/#remote) for the local repository.
-The home page of the repository on GitHub includes the string we need to
-identify it:
+GitLab repository a [remote]({{ page.root }}/reference/#remote) for the local repository.
+The home page of the repository on GitLab includes the string we need to
+identify it after clicking the "Clone" button:
 
-![Where to Find Repository URL on GitHub](../fig/github-find-repo-string.png)
+![Where to Find Repository URL on GitLab](../fig/gitlab-find-repo-string.png)
 
-Click on the 'HTTPS' link to change the [protocol]({{ page.root }}/reference/#protocol) from
-SSH to HTTPS.
+Use the link under "Clone with HTTPS".
 
 > ## HTTPS vs. SSH
 >
@@ -75,13 +74,11 @@ SSH to HTTPS.
 > (this one has a screencast).
 {: .callout}
 
-![Changing the Repository URL on GitHub](../fig/github-change-repo-string.png)
-
 Copy that URL from the browser, go into the local `planets` repository, and run
 this command:
 
 ~~~
-$ git remote add origin https://github.com/vlad/planets.git
+$ git remote add origin https://gitlab.ssec.wisc.edu/vlad/planets.git
 ~~~
 {: .bash}
 
@@ -96,8 +93,8 @@ $ git remote -v
 {: .bash}
 
 ~~~
-origin   https://github.com/vlad/planets.git (push)
-origin   https://github.com/vlad/planets.git (fetch)
+origin   https://gitlab.ssec.wisc.edu/vlad/planets.git (push)
+origin   https://gitlab.ssec.wisc.edu/vlad/planets.git (fetch)
 ~~~
 {: .output}
 
@@ -105,7 +102,7 @@ The name `origin` is a local nickname for your remote repository. We could use
 something else if we wanted to, but `origin` is by far the most common choice.
 
 Once the nickname `origin` is set up, this command will push the changes from
-our local repository to the repository on GitHub:
+our local repository to the repository on GitLab:
 
 ~~~
 $ git push origin master
@@ -118,7 +115,7 @@ Delta compression using up to 4 threads.
 Compressing objects: 100% (6/6), done.
 Writing objects: 100% (9/9), 821 bytes, done.
 Total 9 (delta 2), reused 0 (delta 0)
-To https://github.com/vlad/planets
+To https://gitlab.ssec.wisc.edu/vlad/planets
  * [new branch]      master -> master
 Branch master set up to track remote branch master from origin.
 ~~~
@@ -171,7 +168,7 @@ Branch master set up to track remote branch master from origin.
 
 Our local and remote repositories are now in this state:
 
-![GitHub Repository After First Push](../fig/github-repo-after-first-push.svg)
+![GitLab Repository After First Push](../fig/github-repo-after-first-push.svg)
 
 > ## The '-u' Flag
 >
@@ -190,14 +187,14 @@ $ git pull origin master
 {: .bash}
 
 ~~~
-From https://github.com/vlad/planets
+From https://gitlab.ssec.wisc.edu/vlad/planets
  * branch            master     -> FETCH_HEAD
 Already up-to-date.
 ~~~
 {: .output}
 
 Pulling has no effect in this case because the two repositories are already
-synchronized.  However, if there were changes in the GitHub remote repository
+synchronized.  However, if there were changes in the GitLab remote repository
 that were not present in our current repository, this command would download
 them to our local repository.
 
@@ -216,10 +213,10 @@ Initialized empty Git repository in new_repository
 ~~~
 {: .output}
 
-Now we can add the GitHub repository as a remote of this new repository
+Now we can add the GitLab repository as a remote of this new repository
 
 ~~~
-$ git remote add origin https://github.com/vlad/planets.git
+$ git remote add origin https://gitlab.ssec.wisc.edu/vlad/planets.git
 ~~~
 {: .bash}
 
@@ -236,13 +233,13 @@ remote: Counting objects: 5453, done.
 remote: Total 5453 (delta 0), reused 0 (delta 0), pack-reused 5453
 Receiving objects: 100% (5453/5453), 6.83 MiB | 1.87 MiB/s, done.
 Resolving deltas: 100% (3386/3386), done.
-From https://github.com/vlad/planets.git
+From https://gitlab.ssec.wisc.edu/vlad/planets.git
  * [new branch]      master   -> origin/master
 ~~~
 {: .output}
 
 So we have now updated the master branch of our new repository to match
-the master branch of the GitHub repository which we can confirm by examining the git log. 
+the master branch of the GitLab repository which we can confirm by examining the git log. 
 
 ~~~
 git log --oneline
@@ -257,13 +254,13 @@ f22b25e Start notes on Mars as a base
 ~~~
 {: .output}
 
-Finally, there is an very handy Git command called `clone`
+Finally, there is a very handy Git command called `clone`
 
 This command will perform all of the steps above in one line: 
 
   1. make a new directory with the repository's name
   2. initialize an empty repository
-  3. add the GitHub repository as a remote called `origin`
+  3. add the GitLab repository as a remote called `origin`
   4. pull down the changes of the `master` branch into our new repository
 
 
@@ -273,7 +270,7 @@ Let's create a new directory outside of our current repository and try this comm
 $ cd ~/Desktop
 $ mkdir clone_test
 $ cd clone_test
-$ git clone https://github.com/vlad/planets.git
+$ git clone https://gitlab.ssec.wisc.edu/vlad/planets.git
 ~~~
 {: .bash}
 
@@ -304,33 +301,33 @@ f22b25e Start notes on Mars as a base
 ~~~
 {: .output}
 
-> ## GitHub GUI
+> ## GitLab GUI
 >
-> Browse to your `planets` repository on GitHub.
-> Under the Code tab, find and click on the text that says "XX commits" (where "XX" is some number).
-> Hover over, and click on, the three buttons to the right of each commit.
+> Browse to your `planets` repository on GitLab.
+> Under the project name and icon, find and click on the text that says "XX Commits" (where "XX" is some number).
+> Hover over, and click on, the two buttons to the right of each commit and the commit message on the left.
 > What information can you gather/explore from these buttons?
 > How would you get that same information in the shell?
 >
 > > ## Solution
 > > The left-most button (with the picture of a clipboard) copies the full identifier of the commit to the clipboard. In the shell, ```git log``` will show you the full commit identifier for each commit.
 > >
-> > When you click on the middle button, you'll see all of the changes that were made in that particular commit. Green shaded lines indicate additions and red ones removals. In the shell we can do the same thing with ```git diff```. In particular, ```git diff ID1..ID2``` where ID1 and ID2 are commit identifiers (e.g. ```git diff a3bf1e5..041e637```) will show the differences between those two commits.
+> > When you click on the commit message, you'll see all of the changes that were made in that particular commit. Green shaded lines indicate additions and red ones removals. In the shell we can do the same thing with ```git diff```. In particular, ```git diff ID1..ID2``` where ID1 and ID2 are commit identifiers (e.g. ```git diff a3bf1e5..041e637```) will show the differences between those two commits.
 > >
 > > The right-most button lets you view all of the files in the repository at the time of that commit. To do this in the shell, we'd need to checkout the repository at that particular time. We can do this with ```git checkout ID``` where ID is the identifier of the commit we want to look at. If we do this, we need to remember to put the repository back to the right state afterwards!
 > {: .solution}
 {: .challenge}
 
-> ## GitHub Timestamp
+> ## GitLab Timestamp
 >
-> Create a remote repository on GitHub.  Push the contents of your local
+> Create a remote repository on GitLab.  Push the contents of your local
 > repository to the remote.  Make changes to your local repository and push
-> these changes.  Go to the repo you just created on GitHub and check the
-> [timestamps]({{ page.root }}/reference/#timestamp) of the files.  How does GitHub record
+> these changes.  Go to the repo you just created on GitLab and check the
+> [timestamps]({{ page.root }}/reference/#timestamp) of the files.  How does GitLab record
 > times, and why?
 >
 > > ## Solution
-> > GitHub displays timestamps in a human readable relative format (i.e. "22 hours ago" or "three weeks ago"). However, if you hover over the timestamp, you can see the exact time at which the last change to the file occurred.
+> > GitLab displays timestamps in a human readable relative format (i.e. "22 hours ago" or "three weeks ago"). However, if you hover over the timestamp, you can see the exact time at which the last change to the file occurred.
 > {: .solution}
 {: .challenge}
 
@@ -351,7 +348,7 @@ f22b25e Start notes on Mars as a base
 > First start by adding a remote with an invalid URL:
 >
 > ~~~
-> git remote add broken https://github.com/this/url/is/invalid
+> git remote add broken https://gitlab.ssec.wisc.edu/this/url/is/invalid
 > ~~~
 > {: .bash}
 >
@@ -366,10 +363,10 @@ f22b25e Start notes on Mars as a base
 > {: .solution}
 {: .challenge}
 
-> ## GitHub License and README files
+> ## GitLab License and README files
 >
-> In this section we learned about creating a remote repository on GitHub, but when you initialized your
-> GitHub repo, you didn't add a README.md or a license file. If you had, what do you think would have happened when
+> In this section we learned about creating a remote repository on GitLab, but when you initialized your
+> GitLab repo, you didn't add a README.md or a license file. If you had, what do you think would have happened when
 > you tried to link your local and remote repositories?
 >
 > > ## Solution
